@@ -10,6 +10,8 @@ connectDB();
 import indexRouter from './routes/index.js';
 import urlsRouter from './routes/urls.js';
 
+console.log(process.env.BASE);
+
 // Body Parser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

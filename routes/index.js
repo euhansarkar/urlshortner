@@ -1,9 +1,10 @@
-import express from 'express';
-import Url from '../models/Url.js';
+import express from "express";
+import Url from "../models/Url.js";
 
 const router = express.Router();
 
-router.get('/:urlId', async (req, res) => {
+router.get("/:urlId", async (req, res) => {
+  
   try {
     const url = await Url.findOne({ urlId: req.params.urlId });
     if (url) {
@@ -13,11 +14,11 @@ router.get('/:urlId', async (req, res) => {
         },
         { $inc: { clicks: 1 } }
       );
-      return res.redirect(url.origUrl);
-    } else res.status(404).json('Not found');
+      return res.redirect(url.originalUrl);
+    } else res.status(404).json("Not found");
   } catch (err) {
     console.log(err);
-    res.status(500).json('Server Error');
+    res.status(500).json("Server Error");
   }
 });
 

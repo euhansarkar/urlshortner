@@ -1,28 +1,28 @@
-import express from 'express';
-import { nanoid } from 'nanoid';
-import Url from '../models/Url.js';
-import { validateUrl } from '../utils/utils.js';
-import dotenv from 'dotenv';
-dotenv.config({ path: '../config/.env' });
+import express from "express";
+import { nanoid } from "nanoid";
+import Url from "../models/Url.js";
+import { validateUrl } from "../utils/utils.js";
+import dotenv from "dotenv";
+dotenv.config({ path: "../config/.env" });
 
 const router = express.Router();
 
 // Short URL Generator
-router.post('/short', async (req, res) => {
-  const { origUrl } = req.body;
+router.post("/short", async (req, res) => {
+  const { originalUrl } = req.query;
   const base = process.env.BASE;
 
   const urlId = nanoid();
-  if (validateUrl(origUrl)) {
+  if (validateUrl(originalUrl)) {
     try {
-      let url = await Url.findOne({ origUrl });
+      let url = await Url.findOne({ originalUrl });
       if (url) {
         res.json(url);
       } else {
         const shortUrl = `${base}/${urlId}`;
 
         url = new Url({
-          origUrl,
+          originalUrl,
           shortUrl,
           urlId,
           date: new Date(),
@@ -33,10 +33,10 @@ router.post('/short', async (req, res) => {
       }
     } catch (err) {
       console.log(err);
-      res.status(500).json('Server Error');
+      res.status(500).json("Server Error");
     }
   } else {
-    res.status(400).json('Invalid Original Url');
+    res.status(400).json("Invalid Original Url");
   }
 });
 

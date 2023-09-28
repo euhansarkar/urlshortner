@@ -51,7 +51,7 @@ POST http://localhost:3333/api/short
 Content-Type: application/json
 
 {
-    "origUrl": "https://nemo.hashnode.dev/an-introduction-to-recursion-using-javascript-ckfgx2nrq001xols17h787f87"
+    "originalUrl": "https://nemo.hashnode.dev/an-introduction-to-recursion-using-javascript-ckfgx2nrq001xols17h787f87"
 }
 
 ```
