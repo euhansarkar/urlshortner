@@ -1,19 +1,26 @@
 import { v2 as cloudinary } from "cloudinary";
 import multer from "multer";
 import * as fs from "fs";
+import dotenv from "dotenv";
+import path from "path";
+dotenv.config({ path: "../config/.env" });
 
 cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.API_KEY,
-  api_secret: process.env.API_SECRET,
+  cloud_name: "df916o3vt",
+  api_key: "342159663132698",
+  api_secret: "WF1_1MXe0XXvIQegYzDAcKLm49M",
 });
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/");
+  destination: (req, file, callback) => {
+    callback(null, `uploads`);
   },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
+  filename: (req, file, callback) => {
+    const originalName = file.originalname.split(`.`)[0];
+    callback(
+      null,
+      `${originalName}-${Date.now()}${path.extname(file.originalname)}`
+    );
   },
 });
 
